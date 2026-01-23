@@ -9,7 +9,7 @@ import { MAX_ITEM_COUNT } from '../data.js';
 
 
 export default class Presenter {
-  EventListComponenet = new EventList();
+  eventListComponenet = new EventList();
 
   constructor() {
     this.tripcControlsFilters = document.querySelector('.trip-controls__filters');
@@ -19,13 +19,13 @@ export default class Presenter {
   init() {
     render(new Filters(), this.tripcControlsFilters);
     render(new Sort(), this.tripEvents);
-    render(this.EventListComponenet, this.tripEvents);
-    render(new EditForm(), this.EventListComponenet.getElement());
+    render(this.eventListComponenet, this.tripEvents);
+    render(new EditForm(), this.eventListComponenet.getElement());
 
     for (let i = 0; i < MAX_ITEM_COUNT; i++) {
-      render(new EventItem(), this.EventListComponenet.getElement());
+      render(new EventItem(), this.eventListComponenet.getElement());
     }
-    render(new CreateForm(), this.EventListComponenet.getElement());
+    render(new CreateForm(), this.eventListComponenet.getElement());
   }
 
 }
