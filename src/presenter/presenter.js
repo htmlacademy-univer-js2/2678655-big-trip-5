@@ -1,11 +1,11 @@
-import EventList from "../view/event-list/event-list";
-import Filters from "../view/filters/filters";
-import EditForm from "../view/form/edit-form";
-import CreateForm from "../view/form/create-form";
-import EventItem from "../view/event-item/event-item";
-import Sort from "../view/sort/sort";
+import EventList from '../view/event-list/event-list';
+import Filters from '../view/filters/filters';
+import EditForm from '../view/form/edit-form';
+import CreateForm from '../view/form/create-form';
+import EventItem from '../view/event-item/event-item';
+import Sort from '../view/sort/sort';
 import { render } from '../render.js';
-import { MAX_ITEM_COUNT } from "../data.js";
+import { MAX_ITEM_COUNT } from '../data.js';
 
 
 export default class Presenter {

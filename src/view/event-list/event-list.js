@@ -1,4 +1,4 @@
-import { createEventListTemplate } from "./templates.js";
+import { createEventListTemplate } from './templates.js';
 import { createElement } from '../../render.js';
 
 export default class EventList {

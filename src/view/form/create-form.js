@@ -1,4 +1,4 @@
-import { createFormCreateTemplate } from "./templates.js";
+import { createFormCreateTemplate } from './templates.js';
 import { createElement } from '../../render.js';
 
 export default class CreateForm {

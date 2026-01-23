@@ -1,4 +1,4 @@
-import { createSortTemplate } from "./templates";
+import { createSortTemplate } from './templates.js';
 import { createElement } from '../../render.js';
 
 export default class Sort {
