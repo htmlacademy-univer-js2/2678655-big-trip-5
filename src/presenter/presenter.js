@@ -5,7 +5,7 @@ import CreateForm from '../view/form/create-form';
 import EventItem from '../view/event-item/event-item';
 import Sort from '../view/sort/sort';
 import { render } from '../render.js';
-import { MAX_ITEM_COUNT } from '../data.js';
+import { MAX_EVENT_COUNT } from '../const/const.js';
 
 
 export default class Presenter {
@@ -22,7 +22,7 @@ export default class Presenter {
     render(this.eventListComponent, this.tripEvents);
     render(new EditForm(), this.eventListComponent.getElement());
 
-    for (let i = 0; i < MAX_ITEM_COUNT; i++) {
+    for (let i = 0; i < MAX_EVENT_COUNT; i++) {
       render(new EventItem(), this.eventListComponent.getElement());
     }
     render(new CreateForm(), this.eventListComponent.getElement());
