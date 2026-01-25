@@ -17,7 +17,6 @@ export default class Presenter {
     this.eventListComponent = new EventList();
   }
 
-
   init() {
     this.tripControlsFilters = document.querySelector('.trip-controls__filters');
     this.tripEvents = document.querySelector('.trip-events');
@@ -26,11 +25,9 @@ export default class Presenter {
     render(this.sort, this.tripEvents);
     render(this.eventListComponent, this.tripEvents);
 
-
     const listElement = this.eventListComponent.getElement();
     render(this.createForm, listElement);
     render(this.editForm, listElement);
-
 
     this.model.points.forEach((point) => {
       const destination = this.model.getDestById(point.destination);
