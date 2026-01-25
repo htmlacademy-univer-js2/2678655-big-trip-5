@@ -9,18 +9,24 @@ import { MAX_EVENT_COUNT } from '../const/const.js';
 
 
 export default class Presenter {
-  eventListComponent = new EventList();
 
   constructor() {
-    this.tripcControlsFilters = document.querySelector('.trip-controls__filters');
-    this.tripEvents = document.querySelector('.trip-events');
+    this.filters = new Filters();
+    this.sort = new Sort();
+    this.editForm = new EditForm();
+    this.createForm = new CreateForm();
+    this.eventListComponent = new EventList();
   }
 
   init() {
-    render(new Filters(), this.tripcControlsFilters);
-    render(new Sort(), this.tripEvents);
+    this.tripControlsFilters = document.querySelector('.trip-controls__filters');
+    this.tripEvents = document.querySelector('.trip-events');
+    const listElement = this.eventListComponent.getElement();
+
+    render(this.filters, this.tripControlsFilters);
+    render(this.sort, this.tripEvents);
     render(this.eventListComponent, this.tripEvents);
-    render(new EditForm(), this.eventListComponent.getElement());
+    render(this.createForm, listElement);
 
     for (let i = 0; i < MAX_EVENT_COUNT; i++) {
       render(new EventItem(), this.eventListComponent.getElement());
