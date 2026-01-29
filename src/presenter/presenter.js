@@ -3,6 +3,7 @@ import FiltersView from '../view/filters-view/filters-view.js';
 import SortView from '../view/sort-view/sort-view.js';
 import EventListView from '../view/event-list-view/event-list-view.js';
 import EventItemView from '../view/event-item-view/event-item-view.js';
+import EditFormView from  '../view/form-view/edit-form-view.js';
 
 export default class Presenter {
   #model = null;
@@ -11,6 +12,7 @@ export default class Presenter {
   #sortComponent = null;
   #eventListComponent = null;
   #filtersComponent = null;
+  #formEditComponent = null;
 
   constructor({model, filtersContainer, eventsContainer}) {
     this.#model = model;
@@ -27,7 +29,9 @@ export default class Presenter {
 
   #renderEvent(point, container) {
     const eventData = this.#prepareEventData(point);
-    const eventItem = new EventItemView(eventData);
+    const eventItem = new EventItemView(eventData, {
+      onClick: this.#handleEventItemClick
+    });
     render(eventItem, container);
   }
 
@@ -38,13 +42,26 @@ export default class Presenter {
     );
   }
 
+  #handleEventItemClick = (point) => {
+    console.log('Клик по точке:', point);
+  };
+
+  #handleEditFormSubmit = () => {
+    console.log('Клик по кнопке сохранения');
+  };
+
   init() {
     this.#filtersComponent = new FiltersView();
     this.#sortComponent = new SortView();
     this.#eventListComponent = new EventListView();
+    this.#formEditComponent = new EditFormView({
+        onSubmit: this.#handleEditFormSubmit
+      }
+    );
 
     render(this.#filtersComponent, this.#filtersContainer);
     render(this.#sortComponent, this.#eventsContainer);
+    render(this.#formEditComponent, this.#eventsContainer);
     render(this.#eventListComponent, this.#eventsContainer);
     this.renderEvents();
   }
