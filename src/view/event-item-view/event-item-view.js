@@ -17,6 +17,6 @@ export default class EventItemView extends AbstractView {
   }
 
   #clickHandler = () => {
-    this.#handleClick(this.#data.point);
+    this.#handleClick();
   }
 }

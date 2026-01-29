@@ -1,4 +1,4 @@
-import { render } from '../framework/render.js';
+import { render, replace } from '../framework/render.js';
 import FiltersView from '../view/filters-view/filters-view.js';
 import SortView from '../view/sort-view/sort-view.js';
 import EventListView from '../view/event-list-view/event-list-view.js';
@@ -12,7 +12,6 @@ export default class Presenter {
   #sortComponent = null;
   #eventListComponent = null;
   #filtersComponent = null;
-  #formEditComponent = null;
 
   constructor({model, filtersContainer, eventsContainer}) {
     this.#model = model;
@@ -27,41 +26,52 @@ export default class Presenter {
     return { point, offers, destination };
   }
 
-  #renderEvent(point, container) {
+  #renderEvent(point) {
     const eventData = this.#prepareEventData(point);
+    const editForm = new EditFormView({
+        onSubmit: () => {
+          handleEditFormSubmit()
+        },
+        onClose:() => {
+          replaceFormToEvent();
+        }
+      }
+    );
     const eventItem = new EventItemView(eventData, {
-      onClick: this.#handleEventItemClick
+      onClick: () => {
+        replaceEventToForm();
+      }
     });
-    render(eventItem, container);
+
+    function replaceFormToEvent(){
+      replace(eventItem, editForm)
+    };
+
+    function replaceEventToForm(){
+      replace(editForm, eventItem)
+    };
+
+    function handleEditFormSubmit(){
+      alert('12');
+    };
+
+    render(eventItem, this.#eventListComponent.element);
   }
 
   renderEvents() {
-    const listElement = this.#eventListComponent.element;
     this.#model.points.forEach((point) =>
-      this.#renderEvent(point, listElement)
+      this.#renderEvent(point)
     );
   }
 
-  #handleEventItemClick = (point) => {
-    console.log('Клик по точке:', point);
-  };
-
-  #handleEditFormSubmit = () => {
-    console.log('Клик по кнопке сохранения');
-  };
 
   init() {
     this.#filtersComponent = new FiltersView();
     this.#sortComponent = new SortView();
     this.#eventListComponent = new EventListView();
-    this.#formEditComponent = new EditFormView({
-        onSubmit: this.#handleEditFormSubmit
-      }
-    );
 
     render(this.#filtersComponent, this.#filtersContainer);
     render(this.#sortComponent, this.#eventsContainer);
-    render(this.#formEditComponent, this.#eventsContainer);
     render(this.#eventListComponent, this.#eventsContainer);
     this.renderEvents();
   }
